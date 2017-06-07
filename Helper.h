@@ -666,6 +666,14 @@ public:
 		return true;
 	}
 
+	bool find(P p, my_iterator &it) {
+		my_iterator itTmp;
+		itTmp = std::find(vect.begin(), vect.end(), p);
+		if (itTmp == vect.end()) return false;
+		it = itTmp;
+		return true;
+	}
+
 	template<class Comp>
 	void sort(Comp c)
 	{
