@@ -992,7 +992,7 @@ Computer inputComputer()
 	_hdd = inputInt("Enter hdd capacity: ");
 	_vm = inputInt("Enter video memory amount: ");
 	_value = inputInt("Enter value: ");
-	_count = inputInt("Enter count of copmuters: ");
+	_count = inputInt("Enter count of computers: ");
 
 	return Computer(_code, _mark, _proc, _freq, _ram, _hdd, _vm, _value, _count);
 }
@@ -1023,7 +1023,7 @@ Computer inputComputer(Computer comp)
 	catch (char) { _vm = comp.vm_amount; }
 	try { _value = inputInt("Enter value(current=" + std::to_string(comp.value) + "): "); }
 	catch (char) { _value = comp.value; }
-	try { _count = inputInt("Enter count of copmuters(current=" + std::to_string(comp.count) + "): "); }
+	try { _count = inputInt("Enter count of computers(current=" + std::to_string(comp.count) + "): "); }
 	catch (char) { _count = comp.count; }
 
 	return Computer(_code, _mark, _proc, _freq, _ram, _hdd, _vm, _value, _count);
