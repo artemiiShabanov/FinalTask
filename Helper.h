@@ -57,7 +57,7 @@ public:
 
 	bool operator==(const Computer& that) const
 	{
-		return	this->code == that.code;
+		return	this->code == that.code && this->count == that.count && this->frequency == that.frequency && this->hdd_capacity == that.hdd_capacity;
 	}
 
 
@@ -672,6 +672,11 @@ public:
 		if (itTmp == vect.end()) return false;
 		it = itTmp;
 		return true;
+	}
+
+	my_iterator findit(int n)
+	{
+		return vect.begin() + n;
 	}
 
 	template<class Comp>

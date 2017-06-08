@@ -107,11 +107,10 @@ void printAction()
 	std::cout << "**********************************" << std::endl;
 }
 
-void printBuy(int count)
+void printBuy()
 {
 	std::cout << "\n**********************************" << std::endl;
-	std::cout << "Command list:" << std::endl;
-	for (int i = 1; i < count; i++)  std::cout << " " + std::to_string(i) + ")Buy " + std::to_string(i) + " computer" << std::endl;
+	std::cout << " 1)Buy" << std::endl;
 	std::cout << " 0)Continue search" << std::endl;
 	std::cout << "**********************************" << std::endl;
 }
@@ -215,7 +214,7 @@ void findComputers(MyContainer &cont, int level) {
 		cont = cont.findSubSetByCount(inputInt("Enter count: ", 0));
 		break;
 	case 10://POSITION
-		break;
+		return;
 	}
 
 	findComputers(cont, level + 1);
@@ -252,6 +251,7 @@ int main()
 				{
 					break;
 				}
+
 				switch (n)
 				{
 				case 1://ADD
@@ -261,6 +261,7 @@ int main()
 					}
 					catch (const char*) {}
 					break;
+
 				case 2://PRINT
 					printPrint();
 					n = inputInt("Enter the command: ", 0, 3);
@@ -349,6 +350,7 @@ int main()
 						break;
 					}
 					break;
+
 				case 3://FIND
 					subcont = cont;
 					try {
@@ -368,9 +370,6 @@ int main()
 							else
 								cont.find(subcont.getElem(0), it);
 
-							printAction();
-							n = inputInt("Enter the command: ", 0, 3);
-							std::cout << "\n Record found \n";
 							while (true)
 							{
 								printAction();
@@ -404,7 +403,6 @@ int main()
 					catch (const char*) {}
 					break;
 
-
 				case 4://PRINT HISTORY
 					f.open(fHistory, std::ios::in);
 					if (!f.is_open())
@@ -417,6 +415,7 @@ int main()
 					}
 					f.close();
 					break;
+
 				}
 			}
 		}
@@ -430,9 +429,14 @@ int main()
 					if (subcont.vectSize() == 0)
 					{
 						std::cout << "-------------------------------------" << std::endl;
-						std::cout << "There are no such computers!" << std::endl << std::endl;
+						std::cout << "There are no such computers!" << std::endl;
+						std::cout << "-------------------------------------" << std::endl;
+						std::cout << "Press enter:";
+						std::getline(std::cin, str);
+						std::getline(std::cin, str);
 					}
-					else {
+					else 
+					{
 						if (subcont.vectSize() > 1)
 						{
 							cont.find(subcont.getElem(inputInt("Enter computer's position in the list(1.."
@@ -441,22 +445,23 @@ int main()
 						}
 						else
 							cont.find(subcont.getElem(0), it);
-						std::cout << "\n Record found \n";
-						consoleOutput(subcont);
-						printBuy(subcont.vectSize() + 1);
-						n = inputInt("Enter the command: ", 0, subcont.vectSize() + 1);
-						if (n == 0) continue;//SKIP
-											 //BUY
-						it = cont.findit(subcont.getElem(n - 1));
+						
+						//BUY
 
 						if ((*it).count == 0)
 						{
-							std::cout << std::endl << "No instances available" << std::endl;
+							std::cout << std::endl << "*************  No instances available  *************" << std::endl << std::endl;
+							std::cout << "Press enter:";
+							std::getline(std::cin, str);
+							std::getline(std::cin, str);
 						}
 						else //if (money >= (*it).value)
 						{
+							printBuy();
+							n = inputInt("Enter the command:",0,1);
+							if (n == 0) continue;
 							(*it).count--;
-						//	money -= (*it).value;
+							//money -= (*it).value;
 							f.open(fHistory, std::ios_base::app);
 							f << "Computer #" + std::to_string((*it).code) + " was sold for " + std::to_string((*it).value) << std::endl;
 							f.close();
